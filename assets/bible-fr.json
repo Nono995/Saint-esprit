@@ -1,0 +1,22 @@
+// Fichier JSON de la Bible Louis Segond 1910 (extrait, à compléter pour la version complète)
+// Format : { "Genèse": { "1": ["Au commencement, Dieu créa les cieux et la terre.", ...], ... }, ... }
+{
+  "Genèse": {
+    "1": [
+      "Au commencement, Dieu créa les cieux et la terre.",
+      "La terre était informe et vide: il y avait des ténèbres à la surface de l'abîme, et l'esprit de Dieu se mouvait au-dessus des eaux.",
+      "Dieu dit: Que la lumière soit! Et la lumière fut.",
+      "Dieu vit que la lumière était bonne; et Dieu sépara la lumière d'avec les ténèbres.",
+      "Dieu appela la lumière jour, et il appela les ténèbres nuit. Ainsi, il y eut un soir, et il y eut un matin: ce fut le premier jour."
+    ],
+    "2": [
+      "Ainsi furent achevés les cieux et la terre, et toute leur armée.",
+      "Dieu acheva au septième jour son oeuvre, qu'il avait faite: et il se reposa au septième jour de toute son oeuvre, qu'il avait faite."
+    ]
+  },
+  "Exode": {
+    "1": [
+      "Voici les noms des fils d'Israël, venus en Égypte avec Jacob et la famille de chacun d'eux:"
+    ]
+  }
+}

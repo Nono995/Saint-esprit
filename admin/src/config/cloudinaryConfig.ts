@@ -1,0 +1,4 @@
+const CLOUDINARY_UPLOAD_PRESET = 'unsigned-podcast';
+const CLOUDINARY_CLOUD_NAME = 'dldtb68nn';
+
+export { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME };
