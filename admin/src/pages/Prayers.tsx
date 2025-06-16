@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../config/firebaseConfig';
 import { Prayer } from '../types';
-import { collection, getDocs, orderBy, query, updateDoc, doc, addDoc, Timestamp, deleteDoc } from 'firebase/firestore';
-import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CLOUD_NAME } from '../config/cloudinaryConfig';
+import { collection, getDocs, orderBy, query, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import AddPrayer from './AddPrayer';
 
 export default function Prayers() {

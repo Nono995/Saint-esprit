@@ -87,3 +87,6 @@ Ce projet est privé et destiné à un usage communautaire spécifique.
 ## 👥 Contribution
 
 Pour contribuer au projet, veuillez créer une branche et soumettre une pull request.
+
+---
+**Statut : Interface admin déployée et fonctionnelle** ✅
