@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "build:web": "expo export --platform web --output-dir web-build",
     "copy:pwa": "powershell \"Copy-Item 'public/manifest.json' 'web-build/'; Copy-Item 'public/sw.js' 'web-build/'\"",
-    "vercel-build": "npm run build:web && npm run copy:pwa"
+    "fix:pwa": "node scripts/fix-pwa.js",
+    "vercel-build": "npm run build:web && npm run copy:pwa && npm run fix:pwa"
   },
   "dependencies": {
     "@expo-google-fonts/playfair-display": "^0.4.0",
