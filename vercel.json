@@ -16,6 +16,8 @@
     { "src": "/manifest.json", "dest": "/manifest.json" },
     { "src": "/sw.js", "headers": { "cache-control": "public, max-age=0, must-revalidate" }, "dest": "/sw.js" },
     { "src": "/service-worker.js", "headers": { "cache-control": "public, max-age=0, must-revalidate" }, "dest": "/service-worker.js" },
+    { "src": "/admin/static/(.*)", "dest": "/admin/static/$1" },
+    { "src": "/admin/(.*)", "dest": "/admin/index.html" },
     { "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|json))", "dest": "/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
