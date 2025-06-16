@@ -10,7 +10,11 @@
     }
   ],
   "routes": [
+    { "src": "/_expo/static/(.*)", "dest": "/_expo/static/$1" },
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/service-worker.js", "headers": { "cache-control": "public, max-age=0, must-revalidate" }, "dest": "/service-worker.js" },
+    { "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|json))", "dest": "/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

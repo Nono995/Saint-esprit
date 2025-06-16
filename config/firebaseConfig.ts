@@ -3,13 +3,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDDdAP3XGeMRhai2gJ6NXB7ZTZGsUFTC_4",
-  authDomain: "church-290ce.firebaseapp.com",
-  projectId: "church-290ce",
-  storageBucket: "church-290ce.firebasestorage.app",
-  messagingSenderId: "1045543151176",
-  appId: "1:1045543151176:web:860b948249101dba651a7d",
-  measurementId: "G-T4DTGQNT1V"
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY || "AIzaSyDDdAP3XGeMRhai2gJ6NXB7ZTZGsUFTC_4",
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN || "church-290ce.firebaseapp.com",
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID || "church-290ce",
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET || "church-290ce.firebasestorage.app",
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "1045543151176",
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID || "1:1045543151176:web:860b948249101dba651a7d",
+  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-T4DTGQNT1V"
 };
 
 export const app = initializeApp(firebaseConfig);
