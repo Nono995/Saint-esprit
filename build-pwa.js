@@ -25,16 +25,29 @@ try {
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Saint-Esprit">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="/assets/assets/icon.png">`;
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="167x167" href="/favicon.ico">`;
 
   html = html.replace(
     '<meta name="description" content="Application spirituelle pour la communauté">',
     pwaMetaTags
   );
 
-  // Ajouter le service worker
+  // Ajouter le service worker et test standalone
   const swScript = `  <!-- PWA Service Worker -->
   <script>
+    // Test si l'app est en mode standalone
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('✅ App running in STANDALONE mode - No browser bars!');
+      document.body.style.backgroundColor = '#5F4B8B'; // Couleur de confirmation
+    } else {
+      console.log('❌ App running in BROWSER mode - Browser bars visible');
+    }
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
