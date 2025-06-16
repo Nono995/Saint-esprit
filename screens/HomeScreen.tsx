@@ -246,6 +246,7 @@ export default function HomeScreen() {
   const [playingPrayerId, setPlayingPrayerId] = useState<string | null>(null);
   const [soundObj, setSoundObj] = useState<Audio.Sound | null>(null);
   const [audioProgress, setAudioProgress] = useState<{ [id: string]: number }>({});
+  const [latestPodcast, setLatestPodcast] = useState<any | null>(null);
 
   React.useLayoutEffect(() => {
     navigation.setOptions?.({ headerShown: false });
@@ -370,6 +371,27 @@ export default function HomeScreen() {
     fetchPrayers();
   }, []);
 
+  // Ajout du chargement du dernier podcast
+  useEffect(() => {
+    const fetchLatestPodcast = async () => {
+      try {
+        const q = query(
+          collection(db, 'podcasts'),
+          orderBy('publishedAt', 'desc'),
+          limit(1)
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          setLatestPodcast({ id: doc.id, ...doc.data() });
+        }
+      } catch (e) {
+        setLatestPodcast(null);
+      }
+    };
+    fetchLatestPodcast();
+  }, []);
+
   // Gestion de la lecture audio minimaliste
   const handlePlayPause = async (prayer: any) => {
     if (playingPrayerId === prayer.id) {
@@ -432,11 +454,18 @@ export default function HomeScreen() {
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.header} />
         <PodcastHeaderPlayer 
-          podcast={{
+          podcast={latestPodcast ? {
+            title: latestPodcast.title || 'Podcast du jour',
+            audioUrl: latestPodcast.audioUrl,
+            verseText: latestPodcast.verseText,
+            verseReference: latestPodcast.verseReference,
+            imageUrl: latestPodcast.imageUrl,
+          } : {
             title: 'Podcast du jour',
             audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
             verseText: 'Je puis tout par celui qui me fortifie.',
             verseReference: 'Philippiens 4:13',
+            imageUrl: undefined,
           }}
         />
         <View style={styles.mainContent}>
@@ -530,7 +559,10 @@ export default function HomeScreen() {
           {/* Section Prières publiques - Lecteur minimaliste */}
           {prayers && prayers.length > 0 && (
             <View style={{ marginVertical: 16 }}>
-              <Text style={styles.sectionTitle}>Prières publiques</Text>
+              <View style={styles.eventSectionHeader}>
+                <Text style={styles.eventSectionTitle}>Prières publiques</Text>
+                <View style={styles.eventSectionLine} />
+              </View>
               {prayers.slice(0, 2).map((prayer) => (
                 <MinimalPrayerAudioCard
                   key={prayer.id}
@@ -1194,52 +1226,66 @@ const styles = StyleSheet.create({
   },
   minimalPrayerCard: {
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginVertical: 8,
+    borderRadius: 18, // arrondi plus moderne
+    padding: 22, // plus d'espace intérieur
+    marginVertical: 14, // espace entre les cartes
     shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: '#e0e7ff',
+    minHeight: 120, // carte plus grande
+    width: '100%',
+    alignSelf: 'center',
   },
   minimalPrayerTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: theme.colors.primary,
     marginBottom: 2,
+    letterSpacing: 0.2,
+    fontFamily: 'PlayfairDisplay_700Bold',
   },
   minimalPrayerAuthor: {
-    fontSize: 13,
-    color: theme.colors.text.secondary, // Correction ici
-    marginBottom: 8,
-  },
-  minimalPrayerIntentions: {
     fontSize: 14,
     color: theme.colors.text.secondary,
     marginBottom: 8,
+    fontFamily: 'Roboto_500Medium',
+  },
+  minimalPrayerIntentions: {
+    fontSize: 15,
+    color: theme.colors.secondary,
+    marginBottom: 10,
     fontStyle: 'italic',
+    fontFamily: 'Roboto_400Regular',
   },
   minimalAudioRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 12,
+    gap: 8,
   },
   minimalSeekBtn: {
     marginHorizontal: 4,
     backgroundColor: theme.colors.background,
     borderRadius: 16,
-    padding: 6,
+    padding: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: theme.colors.primary + '22',
   },
   minimalPlayPauseBtn: {
     marginHorizontal: 8,
     backgroundColor: theme.colors.primary + '10',
     borderRadius: 24,
-    padding: 8,
+    padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 2,
+    borderWidth: 1,
+    borderColor: theme.colors.primary + '22',
   },
   minimalPlayPauseBtnActive: {
     backgroundColor: theme.colors.primary,
@@ -1248,16 +1294,16 @@ const styles = StyleSheet.create({
   },
   minimalProgressBarContainer: {
     flex: 1,
-    height: 6,
-    backgroundColor: '#eee',
-    borderRadius: 3,
+    height: 8,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 4,
     overflow: 'hidden',
-    marginLeft: 12,
+    marginLeft: 16,
   },
   minimalProgressBar: {
-    height: 6,
+    height: 8,
     backgroundColor: theme.colors.primary,
-    borderRadius: 3,
+    borderRadius: 4,
   },
   sectionTitle: {
     fontSize: 22,

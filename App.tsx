@@ -442,14 +442,14 @@ const styles = StyleSheet.create({
   tabIconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 8,
-    paddingBottom: 4,
+    paddingTop: 20, // diminue la marge haute
+    paddingBottom: 40, // réduit la marge basse
     width: 70,
   },
   tabIconContainerActive: {
     backgroundColor: `${theme.colors.primary}15`,
     borderRadius: 16,
-    paddingVertical: 8,
+    paddingVertical: 2, // réduit la hauteur du fond actif
   },
   iconWrapper: {
     width: 44,
@@ -458,23 +458,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
+    marginBottom: -8, // remonte l'icône
   },
   iconWrapperActive: {
     backgroundColor: `${theme.colors.secondary}10`,
-    elevation: 2,
+    elevation: 10,
     shadowColor: theme.colors.secondary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 3,
   },
   tabIcon: {
-    marginBottom: 4,
+    marginBottom: 0, // supprime l'espace sous l'icône
   },
   tabLabel: {
     color: theme.colors.text.secondary,
     fontSize: 11,
     fontFamily: 'Roboto_400Regular',
-    marginTop: 2,
+    marginTop: 0, // rapproche le texte de l'icône
     opacity: 0.8,
   },
   tabLabelActive: {
