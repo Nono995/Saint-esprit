@@ -8,14 +8,9 @@ import AddPrayer from './AddPrayer';
 export default function Prayers() {
   const [prayers, setPrayers] = useState<Prayer[]>([]);
   const [loading, setLoading] = useState(true);
-  const [author, setAuthor] = useState('');
-  const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
   const [selectedPrayer, setSelectedPrayer] = useState<Prayer | null>(null);
   const [showComments, setShowComments] = useState(false);
-  const [audioFile, setAudioFile] = useState<File | null>(null);
-  const [formError, setFormError] = useState('');
-  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchPrayers = async () => {
@@ -43,75 +38,8 @@ export default function Prayers() {
     fetchPrayers();
   }, []);
 
-  const handleAdd = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormError('');
-    setMessage('');
-    if (!author.trim() || !content.trim()) {
-      setFormError('Veuillez remplir tous les champs obligatoires.');
-      return;
-    }
-    setSubmitting(true);
-    let audioUrl = '';
-    try {
-      if (audioFile) {
-        const formData = new FormData();
-        formData.append('file', audioFile);
-        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-        const response = await fetch(
-          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
-          { method: 'POST', body: formData }
-        );
-        if (!response.ok) throw new Error('Erreur réseau lors de l\'upload audio');
-        const data = await response.json();
-        if (!data.secure_url) throw new Error('Erreur lors de l\'upload audio');
-        audioUrl = data.secure_url;
-      }
-      await addDoc(collection(db, 'prayers'), {
-        author,
-        content,
-        audioUrl: audioUrl || '',
-        duration: 0, // ou la vraie durée si audio
-        date: new Date().toISOString(),
-        amens: 0,
-        likes: 0,
-        published: true,
-        adminOnly: false,
-        archived: false,
-        commentsList: [],
-        publishedAt: Timestamp.now(),
-      });
-      setAuthor('');
-      setContent('');
-      setAudioFile(null);
-      setMessage('Prière ajoutée !');
-      setTimeout(() => setMessage(''), 2000);
-      // Refresh
-      const q = query(collection(db, 'prayers'), orderBy('publishedAt', 'desc'));
-      const snapshot = await getDocs(q);
-      setPrayers(snapshot.docs.map(docSnap => {
-        const data = docSnap.data();
-        return {
-          id: docSnap.id,
-          author: data.author || '',
-          content: data.content || '',
-          audioUrl: data.audioUrl || '',
-          duration: data.duration || 0,
-          date: data.date || data.created_at || '',
-          likes: data.likes ?? 0,
-          amens: data.amens ?? 0,
-          published: data.published ?? false,
-          adminOnly: data.adminOnly ?? false,
-          archived: data.archived ?? false,
-          commentsList: data.commentsList || [],
-        };
-      }));
-    } catch (err: any) {
-      setFormError(err?.message || 'Erreur lors de l\'ajout de la prière.');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  // La fonction handleAdd a été supprimée car elle n'est pas utilisée
+  // L'ajout de prières se fait via le composant AddPrayer
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Voulez-vous vraiment supprimer cette prière ?')) {
@@ -166,6 +94,11 @@ export default function Prayers() {
 
   return (
     <div className="container">
+      {message && (
+        <div className="alert alert-success" style={{ marginBottom: 16 }}>
+          {message}
+        </div>
+      )}
       <div className="card" style={{ maxWidth: 600, margin: '0 auto', marginBottom: 32 }}>
         <h2 style={{ textAlign: 'center', marginBottom: 24 }}>Ajouter une prière</h2>
         <AddPrayer onPrayerAdded={() => window.location.reload()} />
