@@ -7,7 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "vercel-build": "expo export --platform web --output-dir web-build"
+    "build:web": "expo export --platform web --output-dir web-build",
+    "copy:pwa": "powershell \"Copy-Item 'public/manifest.json' 'web-build/'; Copy-Item 'public/sw.js' 'web-build/'\"",
+    "vercel-build": "npm run build:web && npm run copy:pwa"
   },
   "dependencies": {
     "@expo-google-fonts/playfair-display": "^0.4.0",

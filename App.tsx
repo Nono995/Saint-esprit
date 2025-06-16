@@ -24,6 +24,10 @@ import TestimonyScreen from './screens/TestimonyScreen';
 import BibleScreen from './screens/BibleScreen';
 import PrayerScreen from './screens/PrayerScreen';
 
+// Import PWA components
+import { PWAInstallButton } from './components/PWAInstallButton';
+import { registerServiceWorker, addToHomeScreenPrompt } from './utils/pwaUtils';
+
 // Import theme
 import { theme } from './theme';
 import { app } from './config/firebaseConfig';
@@ -332,6 +336,10 @@ export default function App() {
     setTimeout(() => {
       SplashScreen.hideAsync();
     }, 1000);
+
+    // Initialiser PWA
+    registerServiceWorker();
+    addToHomeScreenPrompt();
   }, []);
 
   if (!fontsLoaded || isFirstLaunch === null) {
@@ -341,6 +349,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+        <PWAInstallButton />
         {isFirstLaunch ? (
           <OnboardingScreen navigation={{ setIsFirstLaunch }} />
         ) : (

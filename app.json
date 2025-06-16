@@ -25,7 +25,18 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro",
-      "output": "single"
+      "output": "single",
+      "name": "Saint-Esprit",
+      "shortName": "Saint-Esprit",
+      "description": "Application spirituelle pour la communauté - Podcasts, Témoignages, Bible et Prières",
+      "themeColor": "#5F4B8B",
+      "backgroundColor": "#FFFFFF",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "scope": "/",
+      "lang": "fr",
+      "dir": "ltr"
     }
   }
 }

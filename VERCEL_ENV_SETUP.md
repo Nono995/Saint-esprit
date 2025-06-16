@@ -1,8 +1,14 @@
-# Configuration des Variables d'Environnement pour Vercel
+# 🚀 Guide de Déploiement Vercel - Saint-Esprit App
 
-## Variables Firebase à ajouter dans Vercel
+## ✅ Corrections Appliquées
 
-Lors de la configuration de votre projet sur Vercel, ajoutez ces variables d'environnement :
+Les problèmes suivants ont été résolus :
+- ❌ **Erreur "Unexpected token '<'"** → ✅ Configuration de routage Vercel corrigée
+- ❌ **Fichiers statiques non trouvés** → ✅ Routes `/_expo/static/` ajoutées
+- ❌ **Build failures** → ✅ Configuration Expo optimisée
+- ❌ **Variables d'environnement** → ✅ Support des env vars ajouté
+
+## 🔧 Variables d'Environnement pour Vercel
 
 ### Firebase Configuration
 ```
@@ -15,35 +21,60 @@ EXPO_PUBLIC_FIREBASE_APP_ID = 1:1045543151176:web:860b948249101dba651a7d
 EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID = G-T4DTGQNT1V
 ```
 
-### Cloudinary Configuration (si utilisé)
+### Cloudinary Configuration (optionnel)
 ```
 EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME = [votre_cloud_name]
 EXPO_PUBLIC_CLOUDINARY_API_KEY = [votre_api_key]
 EXPO_PUBLIC_CLOUDINARY_API_SECRET = [votre_api_secret]
 ```
 
-## Instructions de déploiement
+## 📋 Instructions de Re-déploiement
 
-1. Allez sur https://vercel.com
-2. Connectez-vous avec GitHub
-3. Cliquez sur "New Project"
-4. Importez le repository "Nono995/Saint-esprit"
-5. Configurez :
-   - Project Name: saint-esprit-app
-   - Framework: Other/Static Site
-   - Build Command: npm run vercel-build
-   - Output Directory: web-build
-6. Ajoutez les variables d'environnement ci-dessus
-7. Cliquez sur "Deploy"
+### Option 1: Auto-déploiement (Recommandé)
+Si votre projet Vercel est déjà connecté au repository GitHub :
+1. **Les changements sont automatiquement déployés** après chaque push
+2. Vérifiez le dashboard Vercel pour voir le statut du déploiement
+3. Le nouveau build devrait résoudre l'erreur JavaScript
 
-## Post-déploiement
+### Option 2: Déploiement Manuel
+Si vous devez reconfigurer :
+1. Allez sur https://vercel.com/dashboard
+2. Trouvez votre projet existant ou créez-en un nouveau
+3. Configurez :
+   - **Project Name**: saint-esprit-app
+   - **Framework**: Other/Static Site
+   - **Build Command**: `npm run vercel-build`
+   - **Output Directory**: `web-build`
+4. Ajoutez les variables d'environnement ci-dessus
+5. Redéployez
 
-Après le déploiement, votre application sera accessible via une URL Vercel.
-Vous pourrez configurer un domaine personnalisé si souhaité.
+## 🎯 Vérifications Post-Déploiement
 
-## Troubleshooting
+✅ **Vérifiez que ces éléments fonctionnent :**
+- Page d'accueil se charge sans erreur console
+- Navigation entre les onglets
+- Lecture des podcasts
+- Affichage des témoignages
+- Fonctionnalité Bible
 
-Si le build échoue :
-1. Vérifiez que toutes les variables d'environnement sont correctement définies
-2. Assurez-vous que le build local fonctionne avec `npm run vercel-build`
-3. Vérifiez les logs de build dans l'interface Vercel
+## 🔍 Troubleshooting
+
+### Si l'erreur "Unexpected token '<'" persiste :
+1. **Vérifiez les variables d'environnement** dans Vercel
+2. **Forcez un nouveau déploiement** depuis le dashboard
+3. **Vérifiez les logs de build** pour d'autres erreurs
+
+### Si le build échoue :
+1. Testez localement : `npm run vercel-build`
+2. Vérifiez que `web-build/` est généré correctement
+3. Consultez les logs détaillés dans Vercel
+
+## 📱 Test de l'Application
+
+Une fois déployée, testez ces fonctionnalités critiques :
+- ✅ Onboarding (première visite)
+- ✅ Navigation des onglets
+- ✅ Lecture audio des podcasts
+- ✅ Affichage des témoignages
+- ✅ Lecture de la Bible
+- ✅ Section Prières
